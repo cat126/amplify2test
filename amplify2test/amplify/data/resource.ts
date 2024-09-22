@@ -11,7 +11,81 @@ const schema = a.schema({
     .model({
       content: a.string(),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
+        .authorization((allow) => [allow.publicApiKey()]),
+
+    PlayerEvent: a.model({
+        itemID: a.string().required(),
+        time: a.integer().required(),
+        EventID: a.string().required(),
+        type: a.string().required(), 
+        PlayerName: a.string().required(),
+        playerCount: a.integer().required(),
+        worldID: a.string().required(),
+        instanceID: a.integer().required(),
+        GroupAccessType: a.string().required(),
+        region: a.string().required(),
+        roomName: a.string().required(), 
+        logFrom: a.string().required()
+
+    }).identifier(["itemID"]).authorization(allow => [allow.authenticated()]),
+    AttendaceLog: a.model(
+        {
+            itemID: a.string().required(),
+            name: a.string().required(),
+            time: a.integer().required(),
+            joined: a.boolean().required(),
+            playerCount: a.integer().required(),
+            EventReport: a.belongsTo("EventReport", "eventID"),
+        }).identifier(["itemID"]).authorization(allow => [allow.authenticated()]),
+    EventReport: a.model(
+        {
+            eventID: a.string().required(), 
+            worldID: a.string().required(),
+            worldName: a.string().required(),
+            instanceID: a.integer().required(),
+            region: a.string().required(),
+            peekPlayers: a.integer().required(),
+            totalPlayers: a.integer().required(),
+            firstTimers: a.integer().required(),
+            firstlog: a.integer().required(),
+            lastlog: a.integer().required(),
+            attendaceLog: a.hasMany("AttendaceLog", "itemID"),
+            firstTimeNames: a.string().array()
+        }).identifier(["eventID"]).authorization(allow => [allow.authenticated()]),
+    PlayerReport: a.model(
+        {
+            name: a.string().required(), 
+            fristSeen: a.integer().required(),
+            lastSeen: a.integer().required(),
+            eventsJoined: a.integer().required(),
+            firstEventID: a.string().required(),
+            eventsAttended: a.hasMany("EventReport", "eventID"),
+        }
+    ).identifier(["name"]).authorization(allow => [allow.authenticated()]),
+    WorldReport: a.model(
+        {
+            worldID: a.string().required(),
+            worldName: a.string().required(),
+            firstused: a.integer().required(),
+            lastused: a.integer().required(),
+            timesused: a.integer().required(),
+            eventsUsedIn: a.hasMany("EventReport", "eventID"),
+        }
+    ).identifier(["worldID"]).authorization(allow => [allow.authenticated()]),
+    GlobalStatistics: a.model(
+        {
+            id: a.integer().required(),
+            totalPlayerCount: a.integer().required(),
+            eventCount: a.integer().required(),
+            mapCount: a.integer().required(),
+            oneTimePlayers: a.integer().required(),
+            q1EventAttendance: a.integer().required(),
+            MeanEventAttendance: a.integer().required(),
+            q3EventAttendance: a.integer().required(),
+            averageEventAttendance: a.integer().required(),
+            lastProssesTime: a.integer().required(),
+        }
+    ).identifier(["id"]).authorization(allow => [allow.authenticated()])
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -24,7 +98,7 @@ export const data = defineData({
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
     },
-  },
+    },
 });
 
 /*== STEP 2 ===============================================================
