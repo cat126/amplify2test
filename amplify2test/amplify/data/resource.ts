@@ -28,15 +28,6 @@ const schema = a.schema({
         logFrom: a.string().required()
 
     }).identifier(["itemID"]).authorization(allow => [allow.authenticated()]),
-    AttendaceLog: a.model(
-        {
-            itemID: a.string().required(),
-            name: a.string().required(),
-            time: a.integer().required(),
-            joined: a.boolean().required(),
-            playerCount: a.integer().required(),
-            EventReport: a.belongsTo("EventReport", "eventID"),
-        }).identifier(["itemID"]).authorization(allow => [allow.authenticated()]),
     EventReport: a.model(
         {
             eventID: a.string().required(), 
@@ -52,6 +43,15 @@ const schema = a.schema({
             attendaceLog: a.hasMany("AttendaceLog", "itemID"),
             firstTimeNames: a.string().array()
         }).identifier(["eventID"]).authorization(allow => [allow.authenticated()]),
+    AttendaceLog: a.model(
+        {
+            itemID: a.string().required(),
+            name: a.string().required(),
+            time: a.integer().required(),
+            joined: a.boolean().required(),
+            playerCount: a.integer().required(),
+            EventReport: a.belongsTo("EventReport", "eventID"),
+        }).identifier(["itemID"]).authorization(allow => [allow.authenticated()]),
     PlayerReport: a.model(
         {
             name: a.string().required(), 
