@@ -40,7 +40,7 @@ const schema = a.schema({
             firstTimers: a.integer().required(),
             firstlog: a.integer().required(),
             lastlog: a.integer().required(),
-            attendaceLog: a.hasMany("AttendaceLog", "itemID"),
+            //attendaceLog: a.hasMany("AttendaceLog", "itemID"),
             firstTimeNames: a.string().array()
         }).identifier(["eventID"]).authorization(allow => [allow.authenticated()]),
     AttendaceLog: a.model(
