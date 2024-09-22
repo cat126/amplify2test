@@ -59,7 +59,7 @@ const schema = a.schema({
             lastSeen: a.integer().required(),
             eventsJoined: a.integer().required(),
             firstEventID: a.string().required(),
-            eventsAttended: a.hasMany("EventReport", "eventID"),
+            //eventsAttended: a.hasMany("EventReport", "eventID"),
         }
     ).identifier(["name"]).authorization(allow => [allow.authenticated()]),
     WorldReport: a.model(
@@ -69,7 +69,7 @@ const schema = a.schema({
             firstused: a.integer().required(),
             lastused: a.integer().required(),
             timesused: a.integer().required(),
-            eventsUsedIn: a.hasMany("EventReport", "eventID"),
+            //eventsUsedIn: a.hasMany("EventReport", "eventID"),
         }
     ).identifier(["worldID"]).authorization(allow => [allow.authenticated()]),
     GlobalStatistics: a.model(
