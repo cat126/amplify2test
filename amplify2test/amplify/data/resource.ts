@@ -50,7 +50,7 @@ const schema = a.schema({
             time: a.integer().required(),
             joined: a.boolean().required(),
             playerCount: a.integer().required(),
-            EventReport: a.belongsTo("EventReport", "eventID"),
+            //EventReport: a.belongsTo("EventReport", "eventID"),
         }).identifier(["itemID"]).authorization(allow => [allow.authenticated()]),
     PlayerReport: a.model(
         {
