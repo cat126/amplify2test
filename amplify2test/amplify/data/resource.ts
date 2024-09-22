@@ -40,7 +40,7 @@ const schema = a.schema({
             firstTimers: a.integer().required(),
             firstlog: a.integer().required(),
             lastlog: a.integer().required(),
-            attendaceLog: a.hasMany("AttendaceLog", "EventReport"),
+            attendaceLog: a.hasMany("AttendaceLog", "eventID"),
             firstTimeNames: a.string().array()
         }).identifier(["eventID"]).authorization(allow => [allow.authenticated()]),
     AttendaceLog: a.model(
@@ -50,7 +50,7 @@ const schema = a.schema({
             time: a.integer().required(),
             joined: a.boolean().required(),
             playerCount: a.integer().required(),
-            EventReport: a.belongsTo("EventReport", "attendaceLog"),
+            EventReport: a.belongsTo("EventReport", "eventID"),
         }).identifier(["itemID"]).authorization(allow => [allow.authenticated()]),
     PlayerReport: a.model(
         {
