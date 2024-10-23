@@ -4,14 +4,42 @@ import { generateClient } from "aws-amplify/data";
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
-import { rum } from './rum';
+import { AwsRum, AwsRumConfig } from 'aws-rum-web';
+
 
 
 
 const client = generateClient<Schema>();
 
+//start of code from aws rum
+try {
+    const config: AwsRumConfig = {
+        sessionSampleRate: 0,
+        endpoint: "https://dataplane.rum.us-east-2.amazonaws.com",
+        telemetries: [],
+        allowCookies: true,
+        enableXRay: true
+    };
+
+    const APPLICATION_ID: string = 'fc48546e-3a63-4f2c-b32f-be574387f6a7';
+    const APPLICATION_VERSION: string = '1.0.0';
+    const APPLICATION_REGION: string = 'us-east-2';
+
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const awsRum: AwsRum = new AwsRum(
+        APPLICATION_ID,
+        APPLICATION_VERSION,
+        APPLICATION_REGION,
+        config
+    );
+} catch (error) {
+    // Ignore errors thrown during CloudWatch RUM web client initialization
+}
+//end of code from aws rum
+
+
 function App() {
-  rum();
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
