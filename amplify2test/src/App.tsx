@@ -3,6 +3,9 @@ import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
+import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
+
+
 
 const client = generateClient<Schema>();
 
@@ -16,13 +19,17 @@ function App() {
   }, []);
 
   function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
-
+      client.models.Todo.create({ content: window.prompt("Todo content") });
+      
+    }
+    const [session, setSession] = useState<AuthSession>();
+    fetchAuthSession().then((aSession) => setSession(aSession));
+   
     return (
         <Authenticator>
             {({ signOut }) => (
     <main>
+      {session?.tokens?.accessToken.toString()}
       <h1>My todos</h1>
       <button onClick={createTodo}>+ new</button>
       <ul>
