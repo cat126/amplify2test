@@ -26,13 +26,14 @@ try {
     const APPLICATION_REGION: string = 'us-east-2';
 
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     const awsRum: AwsRum = new AwsRum(
         APPLICATION_ID,
         APPLICATION_VERSION,
         APPLICATION_REGION,
         config
     );
+    console.log(awsRum);
 } catch (error) {
     // Ignore errors thrown during CloudWatch RUM web client initialization
 }
