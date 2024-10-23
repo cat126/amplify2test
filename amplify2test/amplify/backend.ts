@@ -37,3 +37,9 @@ const cfnAppMonitorProps: aws_rum.CfnAppMonitorProps = {
 
 //const rum: aws_rum.CfnAppMonitor =
 new aws_rum.CfnAppMonitor(customResourceStack, "TestRumMointor", cfnAppMonitorProps);
+
+
+const { amplifyDynamoDbTables } = backend.data.resources.cfnResources;
+for (const table of Object.values(amplifyDynamoDbTables)) {
+    table.pointInTimeRecoveryEnabled = true;
+}
