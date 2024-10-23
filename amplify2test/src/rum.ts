@@ -15,12 +15,14 @@ export function rum()
         const APPLICATION_VERSION: string = '1.0.0';
         const APPLICATION_REGION: string = 'us-east-2';
 
+        
         const awsRum: AwsRum = new AwsRum(
             APPLICATION_ID,
             APPLICATION_VERSION,
             APPLICATION_REGION,
             config
         );
+        return awsRum;
     } catch (error) {
         // Ignore errors thrown during CloudWatch RUM web client initialization
     }

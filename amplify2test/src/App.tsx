@@ -11,7 +11,7 @@ import { rum } from './rum';
 const client = generateClient<Schema>();
 
 function App() {
-    rum();
+  rum();
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
