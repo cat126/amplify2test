@@ -4,12 +4,14 @@ import { generateClient } from "aws-amplify/data";
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import { AuthSession, fetchAuthSession } from 'aws-amplify/auth';
+import { rum } from './rum';
 
 
 
 const client = generateClient<Schema>();
 
 function App() {
+    rum();
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {

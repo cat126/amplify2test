@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "aws-rum-web": "^1.19.0"
+  }
+}
